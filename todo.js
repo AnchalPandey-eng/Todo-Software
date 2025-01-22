@@ -28,11 +28,11 @@ function renderTasks() {
         const actionsDiv = document.createElement('div');
         actionsDiv.classList.add('btn-group');
 
-        // Edit Button
+        // Edit Button with confirmation
         const editBtn = document.createElement('button');
         editBtn.classList.add('btn', 'btn-warning', 'btn-sm');
         editBtn.textContent = 'Edit';
-        editBtn.onclick = () => editTask(index);
+        editBtn.onclick = () => confirmEdit(index);
 
         // Complete Button
         const completeBtn = document.createElement('button');
@@ -40,11 +40,11 @@ function renderTasks() {
         completeBtn.textContent = task.completed ? 'Undo' : 'Complete';
         completeBtn.onclick = () => toggleComplete(index);
 
-        // Delete Button
+        // Delete Button with confirmation
         const deleteBtn = document.createElement('button');
         deleteBtn.classList.add('btn', 'btn-danger', 'btn-sm');
         deleteBtn.textContent = 'Delete';
-        deleteBtn.onclick = () => deleteTask(index);
+        deleteBtn.onclick = () => confirmDelete(index);
 
         // Append buttons
         actionsDiv.appendChild(editBtn);
@@ -71,10 +71,11 @@ function addTask() {
     }
 }
 
-// Edit Task function
-function editTask(index) {
+// Confirm Edit Task function
+function confirmEdit(index) {
     const newText = prompt('Edit task:', tasks[index].text);
-    if (newText) {
+    if (newText !== null) {
+        // Only update if user enters something (or cancels the prompt)
         tasks[index].text = newText;
         saveTasks(); // Save updated tasks to localStorage
         renderTasks(); // Re-render tasks
@@ -88,11 +89,13 @@ function toggleComplete(index) {
     renderTasks(); // Re-render tasks
 }
 
-// Delete Task function
-function deleteTask(index) {
-    tasks.splice(index, 1);
-    saveTasks(); // Save updated tasks to localStorage
-    renderTasks(); // Re-render tasks
+// Confirm Delete Task function
+function confirmDelete(index) {
+    if (confirm("Are you sure you want to delete this task?")) {
+        tasks.splice(index, 1); // Remove the task from the array
+        saveTasks(); // Save updated tasks to localStorage
+        renderTasks(); // Re-render tasks
+    }
 }
 
 // Delete All Tasks function
