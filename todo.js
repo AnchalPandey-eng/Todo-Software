@@ -2,6 +2,7 @@
 const taskInput = document.getElementById('taskInput');
 const addTaskBtn = document.getElementById('addTaskBtn');
 const taskList = document.getElementById('taskList');
+const deleteAllBtn = document.getElementById('deleteAllBtn');
 
 // Load tasks from localStorage or initialize an empty array
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -94,6 +95,15 @@ function deleteTask(index) {
     renderTasks(); // Re-render tasks
 }
 
+// Delete All Tasks function
+function deleteAllTasks() {
+    if (tasks.length > 0 && confirm("Are you sure you want to delete all tasks?")) {
+        tasks = []; // Clear tasks array
+        saveTasks(); // Clear tasks from localStorage
+        renderTasks(); // Re-render empty list
+    }
+}
+
 // Event listeners
 addTaskBtn.addEventListener('click', addTask);
 taskInput.addEventListener('keypress', (e) => {
@@ -101,6 +111,9 @@ taskInput.addEventListener('keypress', (e) => {
         addTask();
     }
 });
+
+// Event listener for "Delete All" button
+deleteAllBtn.addEventListener('click', deleteAllTasks);
 
 // Initial Render
 renderTasks();
