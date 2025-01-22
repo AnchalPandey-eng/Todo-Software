@@ -10,6 +10,7 @@
         body {
             background-color: #f8f9fa;
         }
+
         .task-completed {
             text-decoration: line-through;
             background-color: #d1e7dd;
@@ -20,10 +21,16 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center mb-4">Todo Application</h2>
+
         <!-- Task Input Section -->
         <div class="input-group mb-4">
             <input type="text" class="form-control" id="taskInput" placeholder="Add a new task">
             <button class="btn btn-primary" id="addTaskBtn">Add Task</button>
+        </div>
+
+        <!-- Delete All Button -->
+        <div class="text-center mb-4">
+            <button class="btn btn-danger" id="deleteAllBtn">Delete All Tasks</button>
         </div>
 
         <!-- Todo List Section -->
